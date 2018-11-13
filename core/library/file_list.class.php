@@ -38,7 +38,8 @@ class file_list {
 	 */
 	public static function make_dir($dir_name) {
 		if (!is_dir($dir_name)) {			
-			mkdir($dir_name, 0777);
+			mkdir($dir_name, 0777, true);	// PHP 5.5及以上版本需要增加第三个true参数,否则上传文件报错
+			//mkdir($dir_name, 0777);	// PHP 5.5以前用这个
 		} else {
 			if (!is_writable($dir_name)) {
 				chmod($dir_name, 0777);
