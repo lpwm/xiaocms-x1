@@ -5,21 +5,22 @@ if (!defined('IN_XIAOCMS')) exit();
  * 字段操作函数库
  */
 
-function formtype() {
+function formtype()
+{
     $formtype = function_exists('_formtype') ? _formtype() : null;
-	$return   = array(
-        'input'    =>  '单行文本',
+    $return = array(
+        'input' => '单行文本',
         'textarea' => '多行文本',
-        'editor'   => '编辑器',
-        'select'   => '下拉选择框',
-        'radio'    => '单选按钮',
+        'editor' => '编辑器',
+        'select' => '下拉选择框',
+        'radio' => '单选按钮',
         'checkbox' => '复选框',
-        'image'    => '单图上传',
-        'file'     => '文件上传',
-        'files'    => '多文件上传',
-        'date'     => '日期时间',
-		'merge'    => '组合字段',
-		'fields'   => '多字段组合',
+        'image' => '单图上传',
+        'file' => '文件上传',
+        'files' => '多文件上传',
+        'date' => '日期时间',
+        'merge' => '组合字段',
+        'fields' => '多字段组合',
     );
     return $formtype && is_array($formtype) ? array_merge($formtype, $return) : $return;
 }
@@ -28,7 +29,8 @@ function formtype() {
  * 以下函数作用于字段添加/修改部分
  */
 
-function form_input($setting='') {
+function form_input($setting = '')
+{
     return '
     <table width="98%" cellspacing="1" cellpadding="2">
 	<tbody>
@@ -45,19 +47,20 @@ function form_input($setting='') {
 }
 
 
-function form_textarea($setting='') {
+function form_textarea($setting = '')
+{
     return '
     <table width="98%" cellspacing="1" cellpadding="2">
 	<tbody>
 	<tr> 
       <td width="100">宽度 ：</td>
-      <td><input type="text" class="input-text" size="20" value="' .(isset($setting['width']) ? $setting['width'] : '400') . '" name="setting[width]">
+      <td><input type="text" class="input-text" size="20" value="' . (isset($setting['width']) ? $setting['width'] : '400') . '" name="setting[width]">
       <font color="gray">px</font>
       </td>
     </tr>
 	<tr> 
       <td>高度 ：</td>
-      <td><input type="text" class="input-text" size="20" value="' .(isset($setting['height']) ? $setting['height'] : '90') . '" name="setting[height]">
+      <td><input type="text" class="input-text" size="20" value="' . (isset($setting['height']) ? $setting['height'] : '90') . '" name="setting[height]">
       <font color="gray">px</font>
       </td>
     </tr>
@@ -69,16 +72,18 @@ function form_textarea($setting='') {
 	</table>';
 }
 
-function form_editor($setting='') {
-	$t = isset($setting['type']) && $setting['type'] ?  1 : (!isset($setting['type']) ? 1 : 0);
-	$w = isset($setting['width'])  ? $setting['width']  : '100';
-	$h = isset($setting['height']) ? $setting['height'] : '300';
+function form_editor($setting = '')
+{
+//	$t = isset($setting['type']) && $setting['type'] ?  1 : (!isset($setting['type']) ? 1 : 0);
+    $t = $setting['type'];
+    $w = isset($setting['width']) ? $setting['width'] : '100';
+    $h = isset($setting['height']) ? $setting['height'] : '300';
     return '
     <table width="98%" cellspacing="1" cellpadding="2">
     <tbody>
 	<tr> 
       <td width="100">宽度 ：</td>
-      <td><input type="text" class="input-text" size="10" value="' . $w. '" name="setting[width]">
+      <td><input type="text" class="input-text" size="10" value="' . $w . '" name="setting[width]">
       <font color="gray">%</font>
       </td>
     </tr>
@@ -89,9 +94,11 @@ function form_editor($setting='') {
       </td>
     </tr>
     <tr> 
-      <td>类型 ：</td>
-      <td><input type="radio" value=1 name="setting[type]" ' . ($t == 1 ? 'checked' : '') . '> 完整模式&nbsp;&nbsp;&nbsp;&nbsp;
-	  <input type="radio" value=0 name="setting[type]"' . ($t == 0 ? 'checked' : '') . '> 精简模式
+      <td>类型 ：</td>      
+      <td>
+      <input type="radio" value=2 name="setting[type]"' . ($t == 2 ? 'checked' : '') . '> CKEditor&nbsp;&nbsp;&nbsp;&nbsp;
+      <input type="radio" value=1 name="setting[type]" ' . ($t == 1 ? 'checked' : '') . '> 完整模式&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input type="radio" value=0 name="setting[type]"' . ($t == 0 ? 'checked' : '') . '> 精简模式	  
       </td>
     </tr>
 	<tr> 
@@ -102,7 +109,8 @@ function form_editor($setting='') {
 	</table>';
 }
 
-function form_select($setting='') {
+function form_select($setting = '')
+{
     return '
     <table width="98%" cellspacing="1" cellpadding="2">
 	<tbody>
@@ -120,11 +128,13 @@ function form_select($setting='') {
 	</table>';
 }
 
-function form_radio($setting='') {
+function form_radio($setting = '')
+{
     return form_select($setting);
 }
 
-function form_checkbox($setting='') {
+function form_checkbox($setting = '')
+{
     return '
     <table width="98%" cellspacing="1" cellpadding="2">
 	<tbody>
@@ -144,7 +154,8 @@ function form_checkbox($setting='') {
 	</table>';
 }
 
-function form_image($setting='') {
+function form_image($setting = '')
+{
     return '
     <table width="98%" cellspacing="1" cellpadding="2">
     <tbody>
@@ -170,7 +181,8 @@ function form_image($setting='') {
 	</table>';
 }
 
-function form_file($setting='') {
+function form_file($setting = '')
+{
     return '
     <table width="98%" cellspacing="1" cellpadding="2">
     <tbody>
@@ -190,12 +202,14 @@ function form_file($setting='') {
 	</table>';
 }
 
-function form_files($setting='') {
+function form_files($setting = '')
+{
     return form_file($setting);
 }
 
-function form_date($setting='') {
-    $type  = isset($setting['type']) && $setting['type']   ? $setting['type']  : '%Y-%m-%d %H:%M:%S';
+function form_date($setting = '')
+{
+    $type = isset($setting['type']) && $setting['type'] ? $setting['type'] : '%Y-%m-%d %H:%M:%S';
     $width = isset($setting['width']) && $setting['width'] ? $setting['width'] : 150;
     return '
     <table width="98%" cellspacing="1" cellpadding="2">
@@ -216,7 +230,8 @@ function form_date($setting='') {
 	</table>';
 }
 
-function form_merge($setting='') {
+function form_merge($setting = '')
+{
     return '
 	<table width="98%" cellspacing="1" cellpadding="2">
     <tbody>
@@ -233,7 +248,8 @@ function form_merge($setting='') {
 	</table>';
 }
 
-function form_fields($setting='') {
+function form_fields($setting = '')
+{
     return '
 	<table width="98%" cellspacing="1" cellpadding="2">
     <tbody>
@@ -252,58 +268,105 @@ function form_fields($setting='') {
 
 /////////////////////////////////////////////////////////
 
-function get_content_value($content) {
+function get_content_value($content)
+{
     if ($content != '' && preg_match('/^\{M:(.+)\}$/U', $content, $field)) {
-	    if (xiaocms::get_namespace_id() == 'admin') return null;
-		if (!$this->cookie->get('member_id'))       return null;
-		if (!$this->cookie->get('member_id'))          return null; 
-	    $name     = trim($field[1]);
-	    $member   = xiaocms::load_model('member');
-	    $data     = $member->find($this->cookie->get('member_id'));
-		if (isset($data[$name])) return $data[$name];
+        if (xiaocms::get_namespace_id() == 'admin') return null;
+        if (!$this->cookie->get('member_id')) return null;
+        if (!$this->cookie->get('member_id')) return null;
+        $name = trim($field[1]);
+        $member = xiaocms::load_model('member');
+        $data = $member->find($this->cookie->get('member_id'));
+        if (isset($data[$name])) return $data[$name];
 
-		$model    = get_cache('membermodel');
-		$_member  = xiaocms::load_model($model[$data['modelid']]['tablename']);
-	    $_data    = $_member->find($this->cookie->get('member_id'));
-		if (isset($_data[$name])) return $_data[$name];
-	} else {
-	    return $content;
-	}
+        $model = get_cache('membermodel');
+        $_member = xiaocms::load_model($model[$data['modelid']]['tablename']);
+        $_data = $_member->find($this->cookie->get('member_id'));
+        if (isset($_data[$name])) return $_data[$name];
+    } else {
+        return $content;
+    }
 }
 
 /**
  * 以下函数作用于发布内容部分
  */
 
-function content_input($name, $content='', $setting='') {
-    $content = is_null($content[0])    ? get_content_value($setting['default']) : $content[0];
-    $style   = isset($setting['size']) ? " style='width:" . ($setting['size'] ? $setting['size'] : 150) . "px;'": ''; 
+function content_input($name, $content = '', $setting = '')
+{
+    $content = is_null($content[0]) ? get_content_value($setting['default']) : $content[0];
+    $style = isset($setting['size']) ? " style='width:" . ($setting['size'] ? $setting['size'] : 150) . "px;'" : '';
     return '<input type="text" value="' . $content . '" class="input-text" name="data[' . $name . ']" ' . $style . '>';
 }
 
 
-function content_textarea($name, $content='', $setting='') {
+function content_textarea($name, $content = '', $setting = '')
+{
     $content = is_null($content[0]) ? get_content_value($setting['default']) : $content[0];
-    $style   = isset($setting['width']) && $setting['width']   ? 'width:' . $setting['width'] . 'px;' : '';
-    $style  .= isset($setting['height']) && $setting['height'] ? 'height:' . $setting['height'] . 'px;' : '';
+    $style = isset($setting['width']) && $setting['width'] ? 'width:' . $setting['width'] . 'px;' : '';
+    $style .= isset($setting['height']) && $setting['height'] ? 'height:' . $setting['height'] . 'px;' : '';
     return '<textarea style="' . $style . '" name="data[' . $name . ']">' . $content . '</textarea>';
 }
 
-function content_editor($name, $content='', $setting='') {
-	$content = is_null($content[0]) ? get_content_value($setting['default']) : $content[0];
-    $w       = isset($setting['width']) && $setting['width']   ? $setting['width']  : '98';
-    $h       = isset($setting['height']) && $setting['height'] ? $setting['height'] : '400';
-    $id      = $name;
-	$type    = isset($setting['type']) && $setting['type'] ?  1 : (!isset($setting['type']) ? 1 : 0);
-	$str     = '';
-	$page    = !isset($setting['system']) && $name == 'content' ? ", '|', 'pagebreak'" : '';
-	$source  = strpos($_SERVER['QUERY_STRING'], 's=admin') === false || strpos($_SERVER['QUERY_STRING'], 's=admin') === false ? '' : "'source', '|',";
-	if (!defined('XIAOCMS_EDITOR_LD')) {
-	    $str.= '<script type="text/javascript" src="img/kindeditor/kindeditor.js"></script>';
-		define('XIAOCMS_EDITOR_LD', 1);//防止重复加载JS
-	}
-	if ($type) {
-        $str.= "
+function content_editor2($name, $content = '', $setting = '')
+{
+    $content = is_null($content[0]) ? get_content_value($setting['default']) : $content[0];
+    $w = isset($setting['width']) && $setting['width'] ? $setting['width'] : '98';
+    $h = isset($setting['height']) && $setting['height'] ? $setting['height'] : '400';
+    $id = $name;
+    $type = $setting['type'];
+    $str = '';
+    $page = !isset($setting['system']) && $name == 'content' ? ", '|', 'pagebreak'" : '';
+    $source = strpos($_SERVER['QUERY_STRING'], 's=admin') === false || strpos($_SERVER['QUERY_STRING'], 's=admin') === false ? '' : "'source', '|',";
+
+    if (!defined('XIAOCMS_EDITOR_LD')) {
+        $str .= '<script src="./img/ckeditor/ckeditor.js"></script>';
+        define('XIAOCMS_EDITOR_LD', 1);//防止重复加载JS
+    }
+
+    $str .= '<textarea id="' . $id . '" name="data[' . $name . ']" style="width:' . $w . '%;height:' . $h . 'px;visibility:hidden;">' . $content . '</textarea>';
+    if (!isset($setting['system']) && $name == 'content') {
+        $str .= '<div style="padding-top:3px;"><label><input type="checkbox" checked="" value="1" name="data[fn_add_introduce]">自动获取 </label><input type="text" size="2" value="200" name="data[fn_introcude_length]" class="input-text">字符描述<label><input type="checkbox" checked="" value="1" name="data[fn_auto_thumb]">自动获取第一张图为缩略图</div>';
+    }
+
+    $str .= "<script>CKEDITOR.replace('" . $id . "');</script>";
+    return $str;
+}
+
+function content_editor($name, $content = '', $setting = '')
+{
+    $content = is_null($content[0]) ? get_content_value($setting['default']) : $content[0];
+    $w = isset($setting['width']) && $setting['width'] ? $setting['width'] : '98';
+    $h = isset($setting['height']) && $setting['height'] ? $setting['height'] : '400';
+    $id = $name;
+    //$type = isset($setting['type']) && $setting['type'] ? 1 : (!isset($setting['type']) ? 1 : 0);
+    $type = isset($setting['type']) ? $setting['type'] : 1;
+    $str = '';
+    $page = !isset($setting['system']) && $name == 'content' ? ", '|', 'pagebreak'" : '';
+    $source = strpos($_SERVER['QUERY_STRING'], 's=admin') === false || strpos($_SERVER['QUERY_STRING'], 's=admin') === false ? '' : "'source', '|',";
+
+    //CKEditor
+    if ($type == 2) {
+        if (!defined('XIAOCMS_EDITOR_LD')) {
+            $str .= '<script src="./img/ckeditor/ckeditor.js"></script>';
+            define('XIAOCMS_EDITOR_LD', 1);//防止重复加载JS
+        }
+
+        $str .= '<textarea id="' . $id . '" name="data[' . $name . ']" style="width:' . $w . '%;height:' . $h . 'px;visibility:hidden;">' . $content . '</textarea>';
+        if (!isset($setting['system']) && $name == 'content') {
+            $str .= '<div style="padding-top:3px;"><label><input type="checkbox" checked="" value="1" name="data[fn_add_introduce]">自动获取 </label><input type="text" size="2" value="200" name="data[fn_introcude_length]" class="input-text">字符描述<label><input type="checkbox" checked="" value="1" name="data[fn_auto_thumb]">自动获取第一张图为缩略图</div>';
+        }
+
+        $str .= "<script>CKEDITOR.replace('" . $id . "', { height: '" . $h . "px'});</script>";
+    }
+    //默认KindEditor
+    else {
+        if (!defined('XIAOCMS_EDITOR_LD')) {
+            $str .= '<script type="text/javascript" src="img/kindeditor/kindeditor.js"></script>';
+            define('XIAOCMS_EDITOR_LD', 1);//防止重复加载JS
+        }
+        if ($type) {
+            $str .= "
 		<script type=\"text/javascript\">KindEditor.ready(function(K) { 
 		    K.create('#" . $id . "', { 
 			    allowFileManager : true,
@@ -319,8 +382,8 @@ function content_editor($name, $content='', $setting='') {
 			});
 		});
 		</script>";
-	} else {
-	    $str.= "
+        } else {
+            $str .= "
 		<script type=\"text/javascript\">KindEditor.ready(function(K) { 
 			K.create('#" . $id . "', { 
 				allowFileManager : true,
@@ -333,98 +396,104 @@ function content_editor($name, $content='', $setting='') {
 			});
 		});
 		</script>";
-	}
-    $str .= '<textarea id="' . $id . '" name="data[' . $name . ']" style="width:' . $w . '%;height:' . $h . 'px;visibility:hidden;">' . $content . '</textarea>';
-	if (!isset($setting['system']) && $name == 'content') {
-	    $str .= '<div style="padding-top:3px;"><label><input type="checkbox" checked="" value="1" name="data[fn_add_introduce]">自动获取 </label><input type="text" size="2" value="200" name="data[fn_introcude_length]" class="input-text">字符描述<label><input type="checkbox" checked="" value="1" name="data[fn_auto_thumb]">自动获取第一张图为缩略图</div>';
-	}
+        }
+        $str .= '<textarea id="' . $id . '" name="data[' . $name . ']" style="width:' . $w . '%;height:' . $h . 'px;visibility:hidden;">' . $content . '</textarea>';
+        if (!isset($setting['system']) && $name == 'content') {
+            $str .= '<div style="padding-top:3px;"><label><input type="checkbox" checked="" value="1" name="data[fn_add_introduce]">自动获取 </label><input type="text" size="2" value="200" name="data[fn_introcude_length]" class="input-text">字符描述<label><input type="checkbox" checked="" value="1" name="data[fn_auto_thumb]">自动获取第一张图为缩略图</div>';
+        }
+    }
     return $str;
 }
 
 
-
-function content_select($name, $content='', $setting='') {
+function content_select($name, $content = '', $setting = '')
+{
     $content = is_null($content[0]) ? get_content_value($setting['default']) : $content[0];
-    $select  = explode(chr(13), $setting['content']);
-    $str     = "<select id='" . $name . "' name='data[" . $name . "]'>";
+    $select = explode(chr(13), $setting['content']);
+    $str = "<select id='" . $name . "' name='data[" . $name . "]'>";
     foreach ($select as $t) {
-        $n   = $v = $selected = '';
+        $n = $v = $selected = '';
         list($n, $v) = explode('|', $t);
-        $v   = is_null($v) ? trim($n) : trim($v);
+        $v = is_null($v) ? trim($n) : trim($v);
         $selected = $v == $content ? ' selected' : '';
-        $str.= "<option value='" . $v . "'" . $selected . ">" . $n . "</option>";
+        $str .= "<option value='" . $v . "'" . $selected . ">" . $n . "</option>";
     }
     return $str . '</select>';
 }
 
-function content_radio($name, $content='', $setting='') {
+function content_radio($name, $content = '', $setting = '')
+{
     $content = is_null($content[0]) ? get_content_value($setting['default']) : $content[0];
-    $select  = explode(chr(13), $setting['content']);
-    $str     = '';
+    $select = explode(chr(13), $setting['content']);
+    $str = '';
     foreach ($select as $t) {
-        $n   = $v = $selected = '';
+        $n = $v = $selected = '';
         list($n, $v) = explode('|', $t);
-        $v   = is_null($v) ? trim($n) : trim($v);
-        $selected = $v==$content ? ' checked' : '';
-        $str.= $n . '&nbsp;<input type="radio" name="data[' . $name . ']" value="' . $v . '" ' . $selected . '/>&nbsp;&nbsp;';
+        $v = is_null($v) ? trim($n) : trim($v);
+        $selected = $v == $content ? ' checked' : '';
+        $str .= $n . '&nbsp;<input type="radio" name="data[' . $name . ']" value="' . $v . '" ' . $selected . '/>&nbsp;&nbsp;';
     }
     return $str;
 }
 
-function content_checkbox($name, $content='', $setting='') {
+function content_checkbox($name, $content = '', $setting = '')
+{
     $default = get_content_value($setting['default']);
     $content = is_null($content[0]) ? ($default ? @explode(',', $default) : '') : string2array($content[0]);
-    $select  = explode(chr(13), $setting['content']);
-    $str     = '';
+    $select = explode(chr(13), $setting['content']);
+    $str = '';
     foreach ($select as $t) {
-        $n   = $v = $selected = '';
+        $n = $v = $selected = '';
         list($n, $v) = explode('|', $t);
-        $v   = is_null($v) ? trim($n) : trim($v);
+        $v = is_null($v) ? trim($n) : trim($v);
         $selected = is_array($content) && in_array($v, $content) ? ' checked' : '';
-        $str.= $n . '&nbsp;<input type="checkbox" name="data[' . $name . '][]" value="' . $v . '" ' . $selected . ' />&nbsp;&nbsp;';
+        $str .= $n . '&nbsp;<input type="checkbox" name="data[' . $name . '][]" value="' . $v . '" ' . $selected . ' />&nbsp;&nbsp;';
     }
     return $str;
 }
 
-function content_image($name, $content='', $setting='') {
+function content_image($name, $content = '', $setting = '')
+{
     $content = $content[0];
-    $size    = (int)$setting['size'];
-	$height  = isset($setting['height']) ? $setting['height'] : '';
-	$width   = isset($setting['width'])  ? $setting['width']  : '';
-    $str     = '<span style="position: relative;"><input type="text" class="input-text" size="50" value="' . $content . '" name="data[' . $name . ']" id="' . $name . '"  onmouseover="preview2(\'' . $name . '\')" onmouseout="preview(\'' . $name . '\')">
+    $size = (int)$setting['size'];
+    $height = isset($setting['height']) ? $setting['height'] : '';
+    $width = isset($setting['width']) ? $setting['width'] : '';
+    $str = '<span style="position: relative;"><input type="text" class="input-text" size="50" value="' . $content . '" name="data[' . $name . ']" id="' . $name . '"  onmouseover="preview2(\'' . $name . '\')" onmouseout="preview(\'' . $name . '\')">
     <input type="button"  class="button" onClick="uploadImage(\'' . $name . '\',\'' . $width . '\',\'' . $height . '\',\'' . $size . '\')" value="上传图片"><div id="imgPreview' . $name . '"></div></span>';
     return $str;
 }
 
-function content_file($name, $content='', $setting='') {
+function content_file($name, $content = '', $setting = '')
+{
     $content = $content[0];
-    $type    = base64_encode($setting['type']);
-    $size    = (int)$setting['size'];
+    $type = base64_encode($setting['type']);
+    $size = (int)$setting['size'];
     return '<input type="text" class="input-text" size="50" value="' . $content . '" name="data[' . $name . ']" id="' . $name . '">
     <input type="button"  class="button" onClick="uploadFile(\'' . $name . '\',\'' . $type . '\',\'' . $size . '\')" value="上传文件">';
 }
 
-function content_files($name, $content='', $setting='') {
+function content_files($name, $content = '', $setting = '')
+{
     $content = $content[0];
-    $set     = base64_encode($setting['type']) . '|' . (int)$setting['size'];
-	$str     = '';
-    $str    .= '<input type="hidden" value="' . $name . '" name="listfiles[]">
+    $set = base64_encode($setting['type']) . '|' . (int)$setting['size'];
+    $str = '';
+    $str .= '<input type="hidden" value="' . $name . '" name="listfiles[]">
 		<fieldset class="blue pad-10">
         <legend>列表</legend>
         <div class="picList" id="list_' . $name . '_files"><ul id="' . $name . '-sort-items">';
     if ($content) {
-        $content  = string2array($content);
+        $content = string2array($content);
         $filepath = $content['file'];
         $filename = $content['alt'];
-		if (is_array($filepath) && !empty($filepath)) {
-			foreach ($filepath as $id=>$path){
-				$alt  = isset($filename[$id]) ? $filename[$id] : '';
-				$str .= '<li id="files_999' . $id . '">';
-				$str .= '<input type="text" class="input-text" style="width:310px;" value="' . $path . '" name="data[' . $name . '][file][]">';
-				$str .= '<input type="text" class="input-text" style="width:160px;" value="' . $alt . '" name="data[' . $name . '][alt][]">';
-				$str .= '<a href="javascript:removediv(\'999' . $id . '\');">删除</a></li>';
-			}
-		}
+        if (is_array($filepath) && !empty($filepath)) {
+            foreach ($filepath as $id => $path) {
+                $alt = isset($filename[$id]) ? $filename[$id] : '';
+                $str .= '<li id="files_999' . $id . '">';
+                $str .= '<input type="text" class="input-text" style="width:310px;" value="' . $path . '" name="data[' . $name . '][file][]">';
+                $str .= '<input type="text" class="input-text" style="width:160px;" value="' . $alt . '" name="data[' . $name . '][alt][]">';
+                $str .= '<a href="javascript:removediv(\'999' . $id . '\');">删除</a></li>';
+            }
+        }
     }
     $str .= '</ul></fieldset>
 		<div class="bk10"></div>
@@ -434,23 +503,24 @@ function content_files($name, $content='', $setting='') {
     return $str;
 }
 
-function content_date($name, $content='', $setting='') {
-    $c     = $content[0];
-	$type  = isset($setting['type'])  ? $setting['type']  : '%Y-%m-%d %H:%M:%S';
-	$width = isset($setting['width']) ? $setting['width'] : 150;
-	$str   = '';
-	if (!defined('XIAOCMS_DATE_LD')) {
-	    $str .= '
+function content_date($name, $content = '', $setting = '')
+{
+    $c = $content[0];
+    $type = isset($setting['type']) ? $setting['type'] : '%Y-%m-%d %H:%M:%S';
+    $width = isset($setting['width']) ? $setting['width'] : 150;
+    $str = '';
+    if (!defined('XIAOCMS_DATE_LD')) {
+        $str .= '
 		<link href="' . SITE_PATH . 'img/calendar/jscal2.css" type="text/css" rel="stylesheet">
 		<link href="' . SITE_PATH . 'img/calendar/border-radius.css" type="text/css" rel="stylesheet">
 		<link href="' . SITE_PATH . 'img/calendar/win2k.css" type="text/css" rel="stylesheet">
 		<script type="text/javascript" src="' . SITE_PATH . 'img/calendar/calendar.js"></script>
 		<script type="text/javascript" src="' . SITE_PATH . 'img/calendar/cn.js"></script>';
-		define('XIAOCMS_DATE_LD', 1);//防止重复加载JS
-	}
-	return $str . '
+        define('XIAOCMS_DATE_LD', 1);//防止重复加载JS
+    }
+    return $str . '
 	<input type="hidden" value="' . $c . '" name="data[' . $name . ']" id="date_' . $name . '">
-	<input type="text" readonly="" class="date input-text" style="width:' . $width . 'px;" value="' . ($c ? date(str_replace(array('%','M','S'), array('','i','s'), $type), $c) : '') . '" id="' . $name . '" >
+	<input type="text" readonly="" class="date input-text" style="width:' . $width . 'px;" value="' . ($c ? date(str_replace(array('%', 'M', 'S'), array('', 'i', 's'), $type), $c) : '') . '" id="' . $name . '" >
 	<script type="text/javascript">
 		Calendar.setup({
 		weekNumbers : true,
@@ -469,6 +539,7 @@ function content_date($name, $content='', $setting='') {
     </script>';
 }
 
-function content_merge($name, $content='', $setting='') {
-    
+function content_merge($name, $content = '', $setting = '')
+{
+
 }
