@@ -75,7 +75,7 @@ function form_textarea($setting = '')
 function form_editor($setting = '')
 {
 //	$t = isset($setting['type']) && $setting['type'] ?  1 : (!isset($setting['type']) ? 1 : 0);
-    $t = $setting['type'];
+    $t = isset($setting['type']) ? $setting['type'] : 1;
     $w = isset($setting['width']) ? $setting['width'] : '100';
     $h = isset($setting['height']) ? $setting['height'] : '300';
     return '
