@@ -174,7 +174,7 @@ class view {
 			}
 		}
 		$parentid = $system['parentid'] ? $system['parentid']:0;
-		$cats  = get_cache('category');
+		$cats  = (array) get_cache('category');		//PHP7中需要强制转换一下对象类型为array
 		$i=1;
 		foreach ($cats as $catid=>$cat) {
 			if ($system['num']) if($i>$system['num']) break;
