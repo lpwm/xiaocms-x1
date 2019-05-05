@@ -42,9 +42,9 @@ class view {
 	protected function create_compile_file($compile_file, $content) {
 		$compile_dir = dirname($compile_file);
 		if (!is_dir($compile_dir)) {
-			@mkdir($compile_dir, 0777) or exit($compile_dir.'目录没有写入权限');
+			@mkdir($compile_dir, 0777, true) or exit($compile_dir.'目录没有写入权限');	//PHP7以上版本需要增加第三个参数true
 		} else if (!is_writable($compile_dir)) {
-			@chmod($compile_dir, 0777) or exit($compile_dir.'目录没有写入权限');
+			@chmod($compile_dir, 0777, true) or exit($compile_dir.'目录没有写入权限');	//PHP7以上版本需要增加第三个参数true
 		}
 		file_put_contents($compile_file, $content, LOCK_EX) or exit($compile_dir.'目录没有写入权限');
 	}
